@@ -5,11 +5,9 @@ from lxml import etree
 import sys
 import traceback
 
-# -------- CONFIG --------
 DUMP_PATH = r"hewiki-latest-pages-articles.xml.bz2"
 OUTPUT_PICKLE = "Hewiki_BaseGraph.gpickle"
 REPORT_EVERY = 1000
-# ------------------------
 
 WIKI_LINK_RE = re.compile(r"\[\[([^|\]#]+)")
 
