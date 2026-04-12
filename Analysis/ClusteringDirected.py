@@ -7,11 +7,11 @@ g.to_directed()
 n = g.vcount()
 local_C = np.zeros(n, dtype=float)
 
-sum_num = 0   # sum of numerators (closed ordered pairs over all nodes)
-sum_den = 0   # sum of denominators (k*(k-1) over all nodes)
+sum_num = 0   # sum of numerators 
+sum_den = 0   # sum of denominators 
 
 for v in range(n):
-    # neighbors in/out (as python sets for fast intersection)
+    # neighbors in/out
     nin = set(g.neighbors(v, mode="IN"))
     nout = set(g.neighbors(v, mode="OUT"))
     neigh = nin.union(nout)
@@ -20,10 +20,10 @@ for v in range(n):
         local_C[v] = 0.0
         continue
 
-    # numerator: count ordered neighbor pairs (u->w) where both u and w are neighbors of v
+    # numerator
     triangles = 0
     for u in neigh:
-        # outgoing neighbors of u that are among v's neighbors
+        # outgoing neighbors
         out_u = set(g.neighbors(u, mode="OUT"))
         triangles += len(neigh.intersection(out_u))
 
