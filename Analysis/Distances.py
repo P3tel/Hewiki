@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import igraph as ig
 import random
 import math
@@ -17,13 +16,11 @@ g.to_directed()
 
 print(f"Nodes: {g.vcount()}, Edges: {g.ecount()}")
 
-# -------- TRY STRONG FIRST --------
 print("Extracting largest SCC...")
 sccs = g.connected_components(mode="STRONG")
 largest_scc = sccs[0]
 print(f"Largest SCC size: {len(largest_scc)}")
 
-# -------- IF SCC TOO SMALL → USE WCC --------
 if len(largest_scc) <= 10:
     print("SCC is trivial; switching to largest WCC (directed distances within it).")
     wccs = g.connected_components(mode="WEAK")
@@ -35,7 +32,6 @@ else:
 n = g.vcount()
 print(f"Working component size: {n}")
 
-# -------- SAMPLING --------
 def sample_sources(k):
     k = min(k, n)   # avoid oversampling
     vertices = random.sample(range(n), k)
