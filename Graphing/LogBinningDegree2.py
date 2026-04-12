@@ -3,10 +3,8 @@ import numpy as np
 from collections import Counter
 import matplotlib.pyplot as plt
 
-# -------- parameters --------
 GPICKLE_PATH = "hewiki_BaseGraph.gpickle"
 BINS = 20
-# ----------------------------
 
 def log_binned_distribution_from_degrees(degrees, bins=20):
     degrees = np.array([d for d in degrees if d > 0])
@@ -58,7 +56,6 @@ def main():
     print("Plotting...")
     plt.figure()
 
-    # line + points (same color)
     plt.loglog(k_in, p_in, '-o', linewidth=2, markersize=5,
                label="In-degree", color='tab:blue')
 
