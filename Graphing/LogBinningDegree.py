@@ -35,8 +35,7 @@ def plot_two_series(x1, y1, x2, y2, xlabel, ylabel, title, labels=('A','B'), col
     plt.legend()
     plt.tight_layout()
     
-    # cleaner grid: very light, thin lines (or remove entirely)
-    plt.grid(False)  # completely remove grid
+    plt.grid(False)
     plt.show()
 
 def main(graph_path):
