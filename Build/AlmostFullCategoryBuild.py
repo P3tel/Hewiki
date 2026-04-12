@@ -1,31 +1,3 @@
-#!/usr/bin/env python3
-"""
-Hewiki XML → Graph + Categories (fast, offline category extraction)
-
-This version avoids any HTTP requests and instead extracts categories directly
-from the Wikipedia XML dump text (parsing [[קטגוריה:...]] / [[Category:...]]
-links). This is orders of magnitude faster and fully accurate for the dump's
-state (no dependency on network or live site).
-
-Features:
-- Single-run: reads the .bz2 dump, builds directed graph from wikilinks
-  (namespace 0 articles only, skips redirects)
-- Extracts categories from page text using fast regex, attaches to nodes
-- Reports progress every minute (thread-safe)
-- Saves GraphML and prints node/edge counts and category-count histogram
-
-Dependencies:
-  pip install networkx lxml
-
-Run:
-  python hewiki_fast_build.py
-
-Notes:
-- This is much faster than doing online category fetches (no HTTP).
-- If you want additional speedups, consider multiprocessing to parallelize
-  parsing and graph edge emission, or using a more compact graph writer.
-"""
-
 import bz2  
 import re
 import time
@@ -34,7 +6,7 @@ import threading
 from typing import List
 import numpy as np
 
-# ---- NumPy 2.0 compatibility patch for NetworkX 2.8.x ----
+#NumPy compatibility for NetworkX
 if not hasattr(np, "float_"):
     np.float_ = np.float64
 if not hasattr(np, "int_"):
@@ -46,18 +18,16 @@ if not hasattr(np, "bool_"):
 import networkx as nx
 from lxml import etree
 
-# ================= CONFIG =================
 DUMP_PATH = r"hewiki-latest-pages-articles.xml.bz2"
 OUTPUT_GRAPH = "Hewiki_CategoryGraph.graphml"
 OUTPUT_PICKLE = "Hewiki_CategoryGraph.gpickle"
 OUTPUT_EDGELIST = "Hewiki_CategoryGraph.edgelist"
 STATUS_PATH = "crawler_status.json"
 
-REPORT_INTERVAL = 60  # seconds
-SLEEP_BETWEEN_PAGES = 0.001  # small pause if you want to throttle IO
+REPORT_INTERVAL = 60 
+SLEEP_BETWEEN_PAGES = 0.001
 WIKI_LINK_RE = re.compile(r"\[\[([^|\]#]+)")
 CAT_RE = re.compile(r"\[\[(?:קטגוריה:|Category:)([^|\]#]+)", re.IGNORECASE)
-# =========================================
 
 
 def is_namespace0(title: str) -> bool:
