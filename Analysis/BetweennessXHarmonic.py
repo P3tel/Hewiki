@@ -5,7 +5,7 @@ from collections import defaultdict
 from networkx.algorithms.centrality.betweenness import _single_source_shortest_path_basic
 
 GRAPH_PATH = "hewiki_basegraph.gpickle"
-TIME_LIMIT = 60 * 60      # שעה
+TIME_LIMIT = 60 * 60      
 REPORT_EVERY = 5 * 60
 TOP_K = 50
 
@@ -55,10 +55,12 @@ for i, (v, score) in enumerate(top, 1):
 
 print("\nSources processed:", done)
 
-
-
-
-
+///
+///
+///
+///
+///
+///
 
 import networkx as nx
 import time
@@ -66,7 +68,7 @@ import heapq
 from collections import defaultdict
 
 GRAPH_PATH = "hewiki_basegraph.gpickle"
-TIME_LIMIT = 60 * 60      # שעה
+TIME_LIMIT = 60 * 60    
 REPORT_EVERY = 5 * 60
 TOP_K = 50
 
@@ -84,7 +86,7 @@ done = 0
 print("\n=== Starting exact time-bounded harmonic closeness ===")
 
 for s in nodes:
-    # exact shortest paths from s
+    # exact shortest paths
     lengths = nx.single_source_shortest_path_length(G, s)
 
     for t, d in lengths.items():
